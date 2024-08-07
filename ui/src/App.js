@@ -8,6 +8,8 @@ import Register from './Register.js';
 import Home from './Home.js';
 import Inventory from './Inventory.js';
 import Indevidual from './Individual.js';
+import EditItem from './EditPage.js';
+import CreateItem from './CreateItem.js';
 
 
 export const AuthContext = React.createContext();
@@ -38,6 +40,8 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/inventory" element={auth ? <Inventory /> : <Navigate to='/home' />} />
             <Route path="/individual/:itemname" element={<Indevidual />} />
+            <Route path="/editpage/:itemname" element={auth ? <EditItem /> : <Navigate to='/home' />} />
+            <Route path='/createitem' element={auth ? <CreateItem /> : <Navigate to='/home' />} />
           </Routes>
         </PrimeReactProvider>
       </AuthContext.Provider>

@@ -87,7 +87,6 @@ export default function Register() {
 
     const handleResponse = (res) => {
           alert(res.message)
-          navigate('/')
       };
 
 
@@ -95,7 +94,7 @@ export default function Register() {
     return (
         <div>
             <div className="registerbox">
-                <button className="logback" onClick={() => navigate('/')}>Back</button><br/>
+                <button className="logback" onClick={() => navigate('/')}>Back to Login</button><br/>
                 <p>First Name:</p>
                 <input type="text" minLength="1" maxLength="30" placeholder="" value={fName} onChange={(e) => setFname(e.target.value)} required/>
                 <p>Last Name:</p>

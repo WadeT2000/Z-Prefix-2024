@@ -1,7 +1,7 @@
 const loginServer = 'http://localhost:8080/verify';
 
 export default async function authenticate(fName, lName, username, password, requestType) {
-  const response = await fetch(loginServer, {
+  const res = await fetch(loginServer, {
     method: 'POST',
     headers: {
       'Accept': 'application/json, text/plain, */*',
@@ -22,5 +22,5 @@ export default async function authenticate(fName, lName, username, password, req
       return { message: 'Error Connecting to the Server' };
     });
 
-  return response;
-}
+  return res;
+};

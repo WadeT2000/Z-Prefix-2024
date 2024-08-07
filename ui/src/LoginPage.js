@@ -98,7 +98,7 @@ export default function LoginPage() {
         <input className='rememberMe' type="checkbox" checked={checked} onChange={handleRememberMe}/>Remember Me <br />
         <button className="Login" onClick={(e)=>login(e)}>Login</button><br/>
         <button className="Create" onClick={() => navigate('/registration')}>Create Account</button><br/>
-        <button className="Guestbutt" onClick={() => navigate('/home')}>Guest</button>
+        <button className="Guestbutt" onClick={() => navigate(`/home`)}>Guest</button>
         <Dialog header="Alert" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
           <p className="m-0">
             {message}

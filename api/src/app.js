@@ -45,6 +45,37 @@ app.post("/verify", async (req, res) => {
     }
 });
 
+app.post('/additem', async (req, res) => {
+    const {username, itemname, description, quantity} = req.body
+    let query = await knex('item').select('*').where('user_name', username).andWhere('item_name', itemname)
+
+    if(query.length === 0) {
+        await knex('item').insert({user_name: username, item_name: itemname, description: description, quantity: quantity})
+        res.status(200).json({message: "Item Created"});
+    } else {
+        res.status(401).json({ message: "Item already exists under your username"})
+    }
+})
+
+app.delete('/inventory/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        await knex('item')
+            .where({ id })
+            .del();
+
+        res.status(200).json({ message: 'Item deleted successfully' });
+    } catch (error) {
+        console.error("Error deleting item:", error);
+        res.status(500).json({ message: 'Failed to delete item' });
+    }
+});
+
+app.get('/', (req, res) => {
+    res.status(200).send('This is my API')
+})
+
 
 app.get('/users', (req, res) => {
     knex('users')
@@ -68,6 +99,12 @@ app.get('/inventory', async (req, res) => {
     const token = req.cookies.auth_token;
     await knex('users').select('*').where('auth_token', token).then(data => username = data[0].username)
     await knex('item').select('*').where('user_name', username).then(data => res.status(200).json(data))
+})
+
+
+app.get('/userinfo', async (req, res) => {
+    const token = req.cookies.auth_token;
+    await knex('users').select('username').where('auth_token', token).then(data => res.status(200).json(data))
 })
 
 
