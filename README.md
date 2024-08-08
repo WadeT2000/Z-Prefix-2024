@@ -177,6 +177,7 @@ Do not go to a step base off of the error code. Read the error and the potential
 
 # The application should be up and running
 
+Api is hosted at http://localhost:8080/
 
 Information before running the application.
 

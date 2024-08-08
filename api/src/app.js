@@ -89,7 +89,7 @@ app.put('/items/:id', async (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    res.status(200).send('This is my API')
+    res.status(200).send('This is my API the main endpoints are /users and /items')
 })
 
 
