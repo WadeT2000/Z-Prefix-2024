@@ -1,0 +1,86 @@
+.inventorycontainer {
+    padding: 20px;
+}
+
+.inventorynavbar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.invhomebutt, .invadditembutt, .invlogoutbutt {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.invhomebutt:hover, .invadditembutt:hover, .invlogoutbutt:hover {
+    background-color: #0056b3;
+}
+
+.invitembar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.invitembar p {
+    flex: 1;
+    margin: 0;
+    font-weight: bold;
+}
+
+.invitemnames {
+    margin-top: 20px;
+}
+
+.invitementry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.invitemlink {
+    display: flex;
+    flex: 1;
+    text-decoration: none;
+    color: black;
+}
+
+.invitemlink:hover {
+    text-decoration: underline;
+}
+
+.invitemname, .invitemdescription  {
+    flex: 1;
+}
+
+.invdeletebutton {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.invdeletebutton:hover {
+    background-color: #c82333;
+}
+
+.invitemquantity {
+    flex: 1;
+    padding-left: 50px;
+}
+
+.invquant{
+    display: flex;
+    justify-content: center;
+}

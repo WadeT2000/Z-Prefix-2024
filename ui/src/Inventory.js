@@ -1,12 +1,11 @@
 import { useNavigate, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-
-
+import './Inventory.css';
 
 export default function Inventory() {
     const navigate = useNavigate();
     const [userinventory, setuserinventory] = useState([]);
-
+    const [invname, setinvenName] = useState('')
 
     useEffect(() => {
         fetch('http://localhost:8080/inventory', {
@@ -14,9 +13,11 @@ export default function Inventory() {
             credentials: 'include'
         })
         .then(res => res.json())
-        .then(data => setuserinventory(data))
-        
-    }, [])
+        .then(data => {
+            setuserinventory(data)
+            setinvenName(data[0].user_name)
+        })
+    }, []);
 
     async function deleteItem(itemId) {
         try {
@@ -33,26 +34,28 @@ export default function Inventory() {
         } catch (error) {
             console.error("Error deleting item:", error);
         }
-    };
+    }
 
     function inventory() {
-     if(userinventory.length === 0) {
+        if (userinventory.length === 0) {
             return (
                 <h4>You have 0 items listed</h4>
-            )
+            );
         } else {
             return (
-        <ul>
-            {userinventory.map(item => (
-                <>
-                <Link to={`/editpage/${item.item_name}`} key={item.item_name}>
-                <li key={item.id}>{item.item_name} {truncateDescription(item.description)} {item.quantity}</li>
-                </Link>
-                <button onClick={() => deleteItem(item.id)}>Delete</button>
-                </>
-            ))}
-        </ul>
-            )
+                <div className="invitemnames">            
+                {userinventory.map(item => (
+                    <div key={item.item_name} className="invitementry">
+                        <Link to={`/editpage/${item.item_name}`} className="invitemlink">
+                            <p className="invitemname">{item.item_name}</p>
+                            <p className="invitemdescription">{truncateDescription(item.description)}</p>
+                            <p className="invitemquantity">{item.quantity}</p>
+                        </Link>
+                        <button className="invdeletebutton" onClick={() => deleteItem(item.id)}>Delete</button>
+                    </div>
+                ))}
+            </div>
+            );
         }
     }
 
@@ -61,11 +64,28 @@ export default function Inventory() {
     };
 
     return (
-        <div>
-            <button className="homebutt" onClick={() => navigate('/home')}>Home</button>
-            <button className="additembutt" onClick={() => navigate('/createitem')}>Add Item</button>
-            <button className="logoutbutt" onClick={() => navigate('/')}>Log Out</button><br/>
+        <div className="inventorycontainer">
+            <div className="inventorynavbar">
+                <button className="invhomebutt" onClick={() => navigate('/home')}>Home</button>
+                <button className="invadditembutt" onClick={() => navigate('/createitem')}>Add Item</button>
+                <button className="invlogoutbutt" onClick={() => navigate('/')}>Log Out</button>
+            </div>
+            <h3>{invname}'s Inventory</h3>
             <p>Click on an item you would like to edit</p>
+            <div className="invitembar">
+                <div>
+                    <p>Name:</p>
+                </div>
+                <div>
+                    <p>Description:</p>
+                </div>
+                <div className="invquant">
+                    <p>Quantity:</p>
+                </div>
+                <div>
+                    <p>Action:</p>
+                </div>
+            </div>
             {inventory()}
         </div>
     )

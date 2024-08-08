@@ -11,7 +11,6 @@ import Indevidual from './Individual.js';
 import EditItem from './EditPage.js';
 import CreateItem from './CreateItem.js';
 
-
 export const AuthContext = React.createContext();
 
 function App() {

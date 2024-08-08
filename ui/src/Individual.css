@@ -1,0 +1,65 @@
+.individual-container {
+    padding: 20px;
+}
+
+.indivBackhomebar {
+    margin-bottom: 20px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    border-bottom: 5px solid black;
+    background-color: #76a3d3;
+}
+
+.indivhomebutt {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.indivhomebutt:hover {
+    background-color: #0056b3;
+}
+
+.indivheader {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.indivIteminfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.indivitem {
+    width: 60%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+.item-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.item-description {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.item-quantity {
+    font-size: 16px;
+    color: #555;
+}

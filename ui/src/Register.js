@@ -2,6 +2,7 @@
  import { useState} from "react";
  import { Dialog } from 'primereact/dialog';
  import authenticate from './Auth';
+ import './Register.css';
 
 
 export default function Register() {
@@ -94,16 +95,16 @@ export default function Register() {
     return (
         <div>
             <div className="registerbox">
-                <button className="logback" onClick={() => navigate('/')}>Back to Login</button><br/>
-                <p>First Name:</p>
-                <input type="text" minLength="1" maxLength="30" placeholder="" value={fName} onChange={(e) => setFname(e.target.value)} required/>
-                <p>Last Name:</p>
-                <input type="text" minLength="1" maxLength="30" placeholder="" value={lName} onChange={(e) => setLname(e.target.value)} required/>
-                <p>Username:</p>
-                <input type="text" minLength="5" maxLength="30" placeholder="" value={username} onChange={(e) => setUsername(e.target.value)} required/><br/>
-                <p>Password:</p>
-                <input type="password" minLength="5" maxLength="30" placeholder="" value={password} onChange={(e) => setPassword(e.target.value)} required/><br/>
-                <button className="registorbutt" onClick={(e)=>register(e)}>Register</button>
+                <button className="logrback" onClick={() => navigate('/')}>Back to Login</button><br/>
+                <p className="registerfname">First Name:</p>
+                <input type="text" className="regfnameinput" minLength="1" maxLength="30" placeholder="" value={fName} onChange={(e) => setFname(e.target.value)} required/>
+                <p className="registerlname">Last Name:</p>
+                <input type="text" className="reglnameinput" minLength="1" maxLength="30" placeholder="" value={lName} onChange={(e) => setLname(e.target.value)} required/>
+                <p className="registeruname">Username:</p>
+                <input type="text" className="reguserinput" minLength="5" maxLength="30" placeholder="" value={username} onChange={(e) => setUsername(e.target.value)} required/><br/>
+                <p className="registerpass">Password:</p>
+                <input type="password" className="regpassinput" minLength="5" maxLength="30" placeholder="" value={password} onChange={(e) => setPassword(e.target.value)} required/><br/>
+                <button className="registorpbutt" onClick={(e)=>register(e)}>Register</button>
                 <Dialog header="Alert" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
                     <p className="m-0">
                         {message}

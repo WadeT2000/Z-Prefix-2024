@@ -72,6 +72,22 @@ app.delete('/inventory/:id', async (req, res) => {
     }
 });
 
+app.put('/items/:id', async (req, res) => {
+    const { id } = req.params;
+    const { item_name, description, quantity } = req.body;
+
+    try {
+        await knex('item')
+            .where({ id })
+            .update({ item_name, description, quantity });
+
+        res.status(200).json({ message: 'Item updated successfully' });
+    } catch (error) {
+        console.error("Error updating item:", error);
+        res.status(500).json({ message: 'Failed to update item' });
+    }
+});
+
 app.get('/', (req, res) => {
     res.status(200).send('This is my API')
 })

@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState} from "react";
 import { Dialog } from 'primereact/dialog';
 import addItem from './AddIt';
+import './CreateItem.css';
 
 
 
@@ -16,7 +17,6 @@ export default function CreateItem() {
     const [quantity, setquantity] = useState('');
     const [visible, setVisible] = useState(false);
     const [message, setMessage] = useState('');
-    const [manageruser, setmanageruser] = useState('')
 
 
 
@@ -26,7 +26,7 @@ export default function CreateItem() {
             credentials: 'include'
         })
         .then(res => res.json())
-        .then(data => setmanageruser(data[0].username))
+        .then(data => setUname(data[0].user_name))
     }, [])
     
     
@@ -42,18 +42,19 @@ export default function CreateItem() {
 
     const AddItem = async (e) => {
         e.preventDefault();
-        let uNameValidation = usernameformValidation(uName, `Username`);
         let iNameValidation = nameformValidation(iName, `Item Name`);
         let descripValidation = decriptionformValidation(description, `Description`);
         let quantityValidation = quantityformValidation(quantity, `Quantity`);
-        if (!uNameValidation && !iNameValidation && !descripValidation && !quantityValidation){
+        if (!iNameValidation && !descripValidation && !quantityValidation){
           const status = await addItem(uName, iName, description, quantity);
+          console.log(status)
+          if(status.message !== 'Item Created') {
+            alert(status.message)
+          } else {
           handleResponse(status);
+          }
         } else {
           let msg = '';
-          if(uNameValidation){
-            msg = msg.concat(uNameValidation);
-          }
           if (iNameValidation){
             msg = msg.concat(iNameValidation);
           }
@@ -103,28 +104,6 @@ export default function CreateItem() {
         }
     };
 
-    const usernameformValidation = (input, inputType) => {
-        let strRegex = new RegExp(/^[a-z0-9]+$/i);
-        let validChars = strRegex.test(input); 
-        let validLength =(input.length >=1) && (input.length <=30);
-        let validusername = (input === manageruser)
-        let message = '';
-        if (!validChars){
-          message = message.concat(`Invalid Characters in ${inputType}, only alphanumeric characters are acceptable.\n`)
-        }
-        if (!validLength){
-          message = message.concat(`Invalid Length in ${inputType}, input must be 5-30 characters.\n`)
-        }
-        if(!validusername){
-            message = message.concat(`Invalid username in ${inputType}, Must be your username`)
-        }
-        if (validChars && validLength && validusername){
-          return false;
-        } else {
-          return message
-        }
-    };
-
     const nameformValidation = (input, inputType) => {
         let strRegex = new RegExp(/^[a-z0-9]+$/i);
         let validChars = strRegex.test(input); 
@@ -146,23 +125,26 @@ export default function CreateItem() {
 
     const handleResponse = (res) => {
           alert(res.message)
+          navigate('/inventory')
       };
 
 
 
     return (
         <div>
+          <div className="createnavbar">
+          <button className="createcancel" onClick={() => navigate('/inventory')}>Cancel</button>
+            </div>
            <div className="createItembox">
-                <button className="logback" onClick={() => navigate('/inventory')}>Cancel</button><br/>
-                <p>Username:</p>
-                <input type="text" minLength="1" maxLength="30" placeholder="" value={uName} onChange={(e) => setUname(e.target.value)} required/>
-                <p>Item Name:</p>
-                <input type="text" minLength="1" maxLength="30" placeholder="" value={iName} onChange={(e) => setIname(e.target.value)} required/>
-                <p>Description:</p>
-                <input type="text" minLength="1" maxLength="300" placeholder="" value={description} onChange={(e) => setDescription(e.target.value)} required/><br/>
-                <p>Quantity:</p>
-                <input type="text" minLength="1" maxLength="3" placeholder="" value={quantity} onChange={(e) => setquantity(e.target.value)} required/><br/>
-                <button className="registorbutt" onClick={(e)=>AddItem(e)}>Add Item</button>
+                
+                <p className="createuname">Username: {uName}</p>
+                <p className="createiname">Item Name:</p>
+                <input type="text" className="creatinameinput" minLength="1" maxLength="30" placeholder="" value={iName} onChange={(e) => setIname(e.target.value)} required/>
+                <p className="createdescription">Description:</p>
+                <textarea className="createdescriptioninput" minLength="1" maxLength="500" placeholder="" value={description} onChange={(e) => setDescription(e.target.value)} required/><br/>
+                <p className="createquantity">Quantity:</p>
+                <input className="createquantityinput" type="number" min='1' max='9999' placeholder="" value={quantity} onChange={(e) => setquantity(e.target.value)} required/><br/>
+                <button className="createaddbutt" onClick={(e)=>AddItem(e)}>Add Item</button>
                 <Dialog header="Alert" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
                     <p className="m-0">
                         {message}

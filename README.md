@@ -72,8 +72,9 @@ ui   | To create a production build, use npm run build.
 ui   | 
 ui   | webpack compiled successfully
 
-Move onto (The application should be up and running) below
 
+
+Move onto (The application should be up and running) below
 
 Else see below:
 
@@ -127,7 +128,7 @@ Do not go to a step base off of the error code. Read the error and the potential
                 - Press Lctrl+C
                 + ` docker container rm <Container Name> ` (Container Name should be the container that is being hosted on the same port)
                 (This should resolve your container issues)
-            If this fixes any and all erros proceed to (The application should be up and running) below
+            If this fixes any and all errors proceed to (The application should be up and running) below
 
  2. Database that you've created not actually being created? follow below instructions
     

@@ -1,0 +1,79 @@
+.createnavbar {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid black;
+    background-color: #76a3d3;
+}
+
+.createcancel {
+    padding: 10px 20px;
+    background-color: #ff4c4c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-bottom: 20px;
+}
+
+.createcancel:hover {
+    background-color: #ff1c1c;
+}
+
+.createItembox {
+    width: 60%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.createuname {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.createiname,
+.createdescription,
+.createquantity {
+    font-size: 18px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+.creatinameinput, .createdescriptioninput, .createquantityinput {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.createdescriptioninput {
+    height: auto;
+    min-height: 100px;
+    resize: vertical;
+}
+
+.createaddbutt {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+    display: block;
+    margin: 20px auto 0;
+}
+
+.createaddbutt:hover {
+    background-color: #45a049;
+}

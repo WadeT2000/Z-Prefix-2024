@@ -1,61 +1,66 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from './App';
-
-
-
-
-
+import './Home.css';
 
 export default function Home() {
     const navigate = useNavigate();
     const [allshopitems, setallshopitems] = useState([]);
-    const [username, setusername] = useState()
+    const { auth } = useContext(AuthContext);
 
     useEffect(() => {
         fetch('http://localhost:8080/items')
         .then(res => res.json())
         .then(data => setallshopitems(data))
-}, [])
+    }, []);
 
-const truncateDescription = (description) => {
-    return description.length > 100 ? description.substring(0, 100) + "..." : description;
-};
+    const truncateDescription = (description) => {
+        return description.length > 100 ? description.substring(0, 100) + "..." : description;
+    };
 
-// const loggbutton = () => {
-//     if (!auth) {
-
-//     }
-// }
+    const handleInventoryClick = () => {
+        if (auth) {
+            navigate('/inventory');
+        } else {
+            alert('Please log in to view your inventory.');
+        }
+    };
 
     return ( 
-    <div>
-        <div className="NavBar">
-            <button className="Inventory" onClick={() => navigate(`/inventory`)}>My Inventory</button>
-            <button className="Logoutbutt" onClick={() => navigate('/')}>Log Out</button>
-        </div>
         <div>
-        <h2>HOME Page</h2>
-        </div>
-        <div className="itembar">
-            <div>
-            <p>Name:</p>
+            <div className="homeNavBar">
+                <button className="homeInventory" onClick={handleInventoryClick}>My Inventory</button>
+                {auth ? (
+                    <button className="homeLogoutbutt" onClick={() => navigate('/')}>Log Out</button>
+                ) : (
+                    <button className="homeLoginbutt" onClick={() => navigate('/')}>Log In</button>
+                )}
             </div>
             <div>
-            <p>Description:</p>
+                <h2 className="homeheader">HOME PAGE</h2>
             </div>
-            <div>
-            <p>Quantity</p>
+            <div className="homeitembar">
+                <div className="">
+                    <p>Name:</p>
+                </div>
+                <div>
+                    <p>Description:</p>
+                </div>
+                <div>
+                    <p>Quantity</p>
+                </div>
             </div>
-        </div>
-        <div className="item-names">            
+            <div className="homeitemnames">            
                 {allshopitems.map(item => (
-                    <Link to={`/individual/${item.item_name}`} key={item.item_name}>
-                    <p key={item.id}>{item.item_name} {truncateDescription(item.description)} {item.quantity}</p>
+                    <Link to={`/individual/${item.item_name}`} key={item.item_name} className="homeitemlink">
+                        <div className="homeitementry">
+                            <p className="homeitemname">{item.item_name}</p>
+                            <p className="homeitemdescription">{truncateDescription(item.description)}</p>
+                            <p className="homeitemquantity">{item.quantity}</p>
+                        </div>
                     </Link>
                 ))}
+            </div>
         </div>
-
-    </div>
     )
 }

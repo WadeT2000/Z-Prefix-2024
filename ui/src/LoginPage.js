@@ -4,6 +4,7 @@ import { Dialog } from 'primereact/dialog';
 import authenticate from './Auth';
 import Cookies from 'js-cookie';
 import { AuthContext } from './App';
+import './LoginPage.css'
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -89,16 +90,16 @@ export default function LoginPage() {
   };
 
   return (
-    <div>
+    <div className="loginbackground">
       <div className="loginbox">
-        <p>Username:</p>
-        <input type="text" minLength="5" maxLength="30" placeholder={checked&&username!=='' ? username : ""} value={username} onChange={(e) => setUsername(e.target.value)} required/><br/>
-        <p>Password:</p>
-        <input type="password" minLength="5" maxLength="30" placeholder="" value={password} onChange={(e) => setPassword(e.target.value)} required/><br/>
+        <p className="loginUser">Username:</p>
+        <input type="text" className='loginuserinput' minLength="5" maxLength="30" placeholder={checked&&username!=='' ? username : ""} value={username} onChange={(e) => setUsername(e.target.value)} required/><br/>
+        <p className="loginPass">Password:</p>
+        <input type="password" className='loginpassinput' minLength="5" maxLength="30" placeholder="" value={password} onChange={(e) => setPassword(e.target.value)} required/><br/>
         <input className='rememberMe' type="checkbox" checked={checked} onChange={handleRememberMe}/>Remember Me <br />
-        <button className="Login" onClick={(e)=>login(e)}>Login</button><br/>
-        <button className="Create" onClick={() => navigate('/registration')}>Create Account</button><br/>
-        <button className="Guestbutt" onClick={() => navigate(`/home`)}>Guest</button>
+        <button className="loginpbutton" onClick={(e)=>login(e)}>Login</button><br/>
+        <button className="createpbutton" onClick={() => navigate('/registration')}>Create Account</button><br/>
+        <button className="Guestpbutt" onClick={() => navigate(`/home`)}>Guest</button>
         <Dialog header="Alert" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
           <p className="m-0">
             {message}
