@@ -187,7 +187,7 @@ Information before running the application.
             - un: JimmyJ pw: 12345
             - un: HarryH pw: 12345
 
-Navigate to google chrome and in a new tab go to localhost:3000/
+Navigate to google chrome and in a new tab go to http://localhost:3000/
 
 # Login
 
