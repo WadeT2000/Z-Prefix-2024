@@ -1,6 +1,5 @@
  import { useNavigate } from "react-router-dom";
  import { useState} from "react";
- import { Dialog } from 'primereact/dialog';
  import authenticate from './Auth';
  import './Register.css';
 
@@ -11,14 +10,11 @@ export default function Register() {
     const [lName, setLname] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [visible, setVisible] = useState(false);
-    const [message, setMessage] = useState('');
 
 
 
-    const alert = (msg) => {
-        setMessage(msg);
-        setVisible(true);
+    const handlealert = (msg) => {
+        alert(msg)
       }
 
 
@@ -45,7 +41,7 @@ export default function Register() {
           if (passValidation){
             msg = msg.concat(passValidation);
           }
-          alert(msg)
+          handlealert(msg)
         }
       };
 
@@ -88,6 +84,7 @@ export default function Register() {
 
     const handleResponse = (res) => {
           alert(res.message)
+          navigate('/')
       };
 
 
@@ -105,11 +102,6 @@ export default function Register() {
                 <p className="registerpass">Password:</p>
                 <input type="password" className="regpassinput" minLength="5" maxLength="30" placeholder="" value={password} onChange={(e) => setPassword(e.target.value)} required/><br/>
                 <button className="registorpbutt" onClick={(e)=>register(e)}>Register</button>
-                <Dialog header="Alert" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
-                    <p className="m-0">
-                        {message}
-                    </p>
-                </Dialog>
             </div>
         </div>
     )

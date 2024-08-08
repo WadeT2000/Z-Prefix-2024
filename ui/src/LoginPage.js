@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useContext, useEffect } from 'react';
-import { Dialog } from 'primereact/dialog';
 import authenticate from './Auth';
 import Cookies from 'js-cookie';
 import { AuthContext } from './App';
@@ -10,14 +9,11 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [visible, setVisible] = useState(false);
-  const [message, setMessage] = useState('');
   const { setAuth } = useContext(AuthContext);
   const [checked, setChecked] = useState(false);
 
-  const alert = (msg) => {
-    setMessage(msg);
-    setVisible(true);
+  const handlealert = (msg) => {
+    alert(msg)
   }
 
   const login = async (e) => {
@@ -42,7 +38,7 @@ export default function LoginPage() {
       if (passValidation){
         msg = msg.concat(passValidation);
       }
-      alert(msg)
+      handlealert(msg)
     }
   };
 
@@ -100,11 +96,6 @@ export default function LoginPage() {
         <button className="loginpbutton" onClick={(e)=>login(e)}>Login</button><br/>
         <button className="createpbutton" onClick={() => navigate('/registration')}>Create Account</button><br/>
         <button className="Guestpbutt" onClick={() => navigate(`/home`)}>Guest</button>
-        <Dialog header="Alert" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
-          <p className="m-0">
-            {message}
-          </p>
-        </Dialog>
       </div>
     </div>
   )

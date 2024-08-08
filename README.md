@@ -1,15 +1,3 @@
-# This is my Docker-Compose template
-
-- Under docker-compose.yaml change my_database to the name of the database you want to create
-    Line 10 - POSTGRES_DB=my_database
-    Line 35 - DB_CONNECTION_STRING=postgresql://postgres:docker@db:5432/my_database 
-    (Save the document)
-      
-- In ./api/.env change my_database to the name of the database you want to create as well.
-      - DB_CONNECTION_STRING=postgresql://postgres:docker@db:5432/my_database
-
-- All other ports and DockerFiles should be configured for 3000:3000 for the ui(frontend) and 8080:8080 for the api(backend). The database will be hosted on the default 5432:5432
-
 # First step before running
     
     Open docker-desktop in the background
@@ -189,29 +177,58 @@ Do not go to a step base off of the error code. Read the error and the potential
 
 # The application should be up and running
 
-    Your basic testing application should be running
-        localhost:3000/ should display 
-            - Testing
-        localhost:8080/ should display
-                - My API is up and running!
-            As well as and end point
-        localhost:8080/testingtable
-                - [{"id":1,"name":"rowValue1"},{"id":2,"name":"rowValue2"},{"id":3,"name":"rowValue3"}]
+
+Information before running the application.
+
+    Each ManagerInventory is based off of their username.
+        -For the items that are pre-created there are 3 precreated Inventory Manager accounts
+
+            - un: BillyB pw: 12345
+            - un: JimmyJ pw: 12345
+            - un: HarryH pw: 12345
+
+Navigate to google chrome and in a new tab go to localhost:3000/
+
+# Login
+
+    - Login using one of the preset usernames and passwords
+
+# Register
+
+    - Click the Create Account button
+    -Fill out the fields and click register
+    -Login using the username and password you created
+
+# Guest
+
+    -Click the guest button to view the entire inventory
+
+# Navigating while a guest
+
+    - In the Home Page click on an item to view the full details
+
+# Navigating while logged in
+
+    - In the Inventory Manager Inventory page you can do multiple things
+        
+        1. Click on an item to view the full details
+
+        2. Toggle the edit button and click on an item in order to edit said item
+            - Edit the fields you wish to change or click the cancel button to go back to your inventory
+                (I read the specific user story to late and dont want to change it.)
+
+        3. Click on the add item to navigate to add an item
+            - Fill out the fields and click Add Item button to create the item or click cancel to go back
+        
+        3. Click on an items delete button to delete an item from the inventory and the full inventory
+
+        4. Click the Home button to navigate to the full inventory
+            - From here you can click on an individual item to view the full details
+
+        5. Click the Logout button on the inventory or home page to return to the login page to change users.
 
 
+# Questions and or comments
 
-# Navigating docker-compose
-
-    In the teminal
-
-    - Press L-ctrl + C
-    - ` docker-compose down `
-
-    From here you can build your Frontend(ui) and backend(api)
-    Follow the Readme's for each directory to build your database and react-app
-
-Once you have completed your database run ` docker-compose up --build `
-You can work on your backend endpoints in api/src/app.js and it will show your changes at each localhost:8080.
-You can work on your frontend ui/src and it will show your changes at each localhost:3000.
-
-    (Keep in mind and changes to the actual database you will need to ` docker-compose down ` and ` docker-compose up --build ` to see these new changes)
+    -Contact me through my slack dms.
+        (If you dont have it then you dont need it)

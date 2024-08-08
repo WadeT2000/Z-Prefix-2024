@@ -58,7 +58,7 @@ export default function EditItem() {
                     <p>Description:</p>
                     <textarea className="editdescriptioninput" minLength='1' maxLength='500' name="description" value={singleitem.description} onChange={handleInputChange} />
                     <p>Quantity:</p>
-                    <input type="number" className="editquantinput" min='1' max='9999' name="quantity" value={singleitem.quantity} onChange={handleInputChange} />
+                    <input type="number" className="editquantinput" min='1' name="quantity" value={singleitem.quantity} onChange={handleInputChange} />
                 </div>
             </div>
             <button className='editcommitbutt' onClick={handleSubmit}>Commit changes</button>

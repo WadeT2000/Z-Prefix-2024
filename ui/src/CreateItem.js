@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState} from "react";
-import { Dialog } from 'primereact/dialog';
 import addItem from './AddIt';
 import './CreateItem.css';
 
@@ -15,18 +14,20 @@ export default function CreateItem() {
     const [iName, setIname] = useState('');
     const [description, setDescription] = useState('');
     const [quantity, setquantity] = useState('');
-    const [visible, setVisible] = useState(false);
-    const [message, setMessage] = useState('');
+    const [uID, setUId] = useState('')
 
 
 
     useEffect(() => {
-        fetch('http://localhost:8080/inventory', {
+        fetch('http://localhost:8080/userinfo', {
             method: 'GET',
             credentials: 'include'
         })
         .then(res => res.json())
-        .then(data => setUname(data[0].user_name))
+        .then(data => {
+          setUId(data[0].id)
+          setUname(data[0].username)
+        })
     }, [])
     
     
@@ -34,9 +35,8 @@ export default function CreateItem() {
     
     
     
-    const alert = (msg) => {
-        setMessage(msg);
-        setVisible(true);
+    const handlealert = (msg) => {
+        alert(msg)
       }
 
 
@@ -46,7 +46,7 @@ export default function CreateItem() {
         let descripValidation = decriptionformValidation(description, `Description`);
         let quantityValidation = quantityformValidation(quantity, `Quantity`);
         if (!iNameValidation && !descripValidation && !quantityValidation){
-          const status = await addItem(uName, iName, description, quantity);
+          const status = await addItem(uID, uName, iName, description, quantity);
           console.log(status)
           if(status.message !== 'Item Created') {
             alert(status.message)
@@ -64,40 +64,31 @@ export default function CreateItem() {
           if (quantityValidation){
             msg = msg.concat(quantityValidation);
           }
-          alert(msg)
+          handlealert(msg)
         }
       };
 
     const quantityformValidation = (input, inputType) => {
         let strRegex = new RegExp(/^[0-9]+$/i);
         let validChars = strRegex.test(input); 
-        let validLength =(input.length >=1) && (input.length <=3);
         let message = '';
         if (!validChars){
           message = message.concat(`Invalid Characters in ${inputType}, only numeric characters are acceptable.\n`)
         }
-        if (!validLength){
-          message = message.concat(`Invalid Length in ${inputType}, input must be 5-30 characters.\n`)
-        }
-        if (validChars && validLength){
+        if (validChars){
           return false;
         } else {
           return message
         }
     };  
 
-    const decriptionformValidation = (input, inputType) => {
-        let strRegex = new RegExp(/^[a-z 0-9]+$/i);
-        let validChars = strRegex.test(input); 
+    const decriptionformValidation = (input, inputType) => { 
         let validLength =(input.length >=1) && (input.length <=300);
         let message = '';
-        if (!validChars){
-          message = message.concat(`Invalid Characters in ${inputType}, only alphanumeric characters are acceptable.\n`)
-        }
         if (!validLength){
-          message = message.concat(`Invalid Length in ${inputType}, input must be 5-30 characters.\n`)
+          message = message.concat(`Invalid Length in ${inputType}, input must be 1-300 characters.\n`)
         }
-        if (validChars && validLength){
+        if (validLength){
           return false;
         } else {
           return message
@@ -143,13 +134,8 @@ export default function CreateItem() {
                 <p className="createdescription">Description:</p>
                 <textarea className="createdescriptioninput" minLength="1" maxLength="500" placeholder="" value={description} onChange={(e) => setDescription(e.target.value)} required/><br/>
                 <p className="createquantity">Quantity:</p>
-                <input className="createquantityinput" type="number" min='1' max='9999' placeholder="" value={quantity} onChange={(e) => setquantity(e.target.value)} required/><br/>
+                <input className="createquantityinput" type="number" min='1' placeholder="" value={quantity} onChange={(e) => setquantity(e.target.value)} required/><br/>
                 <button className="createaddbutt" onClick={(e)=>AddItem(e)}>Add Item</button>
-                <Dialog header="Alert" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
-                    <p className="m-0">
-                        {message}
-                    </p>
-                </Dialog>
             </div>
         </div>
     )

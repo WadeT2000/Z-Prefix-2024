@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import './Individual.css'
 
 
-export default function Indevidual() {
+export default function ManagerIndevidual() {
     const {itemname} = useParams();
     const navigate = useNavigate();
     const [singleitem, setsingleitem] = useState([])
@@ -20,7 +20,7 @@ export default function Indevidual() {
     return (
         <div>
             <div className="indivBackhomebar">
-                <button className="indivhomebutt" onClick={() => navigate('/home')}>Home Page</button>
+                <button className="indivhomebutt" onClick={() => navigate('/inventory')}>Back</button>
             </div>
             <h2 className="indivheader">{itemname} info</h2>
             <div className="indivIteminfo">

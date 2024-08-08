@@ -1,6 +1,6 @@
 const additemServer = 'http://localhost:8080/additem';
 
-export default async function addItem(uName, iName, description, quantity) {
+export default async function addItem(uID, uName, iName, description, quantity) {
   const response = await fetch(additemServer, {
     method: 'POST',
     headers: {
@@ -8,6 +8,7 @@ export default async function addItem(uName, iName, description, quantity) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
+      userId: uID,
       username: uName,
       itemname: iName,
       description: description,

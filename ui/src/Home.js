@@ -31,7 +31,7 @@ export default function Home() {
             <div className="homeNavBar">
                 <button className="homeInventory" onClick={handleInventoryClick}>My Inventory</button>
                 {auth ? (
-                    <button className="homeLogoutbutt" onClick={() => navigate('/')}>Log Out</button>
+                    <button className="homeLogoutbutt" onClick={() => navigate('/logout')}>Log Out</button>
                 ) : (
                     <button className="homeLoginbutt" onClick={() => navigate('/')}>Log In</button>
                 )}

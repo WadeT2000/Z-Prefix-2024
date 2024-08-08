@@ -5,7 +5,8 @@ import './Inventory.css';
 export default function Inventory() {
     const navigate = useNavigate();
     const [userinventory, setuserinventory] = useState([]);
-    const [invname, setinvenName] = useState('')
+    const [invname, setinvenName] = useState('');
+    const [isEditPage, setIsEditPage] = useState(false);
 
     useEffect(() => {
         fetch('http://localhost:8080/inventory', {
@@ -14,9 +15,24 @@ export default function Inventory() {
         })
         .then(res => res.json())
         .then(data => {
+            if(data.length === 0) {
+            } else {
             setuserinventory(data)
             setinvenName(data[0].user_name)
+            }
         })
+    }, []);
+
+    useEffect(() => {
+        fetch('http://localhost:8080/userinfo', {
+            method: 'GET',
+            credentials: 'include'
+        })
+        .then(res => res.json())
+        .then(data => {
+            setinvenName(data[0].username)
+            }
+        )
     }, []);
 
     async function deleteItem(itemId) {
@@ -36,6 +52,10 @@ export default function Inventory() {
         }
     }
 
+    const handleToggleChange = (event) => {
+        setIsEditPage(event.target.value === "editpage");
+    };
+
     function inventory() {
         if (userinventory.length === 0) {
             return (
@@ -46,7 +66,7 @@ export default function Inventory() {
                 <div className="invitemnames">            
                 {userinventory.map(item => (
                     <div key={item.item_name} className="invitementry">
-                        <Link to={`/editpage/${item.item_name}`} className="invitemlink">
+                        <Link to={isEditPage ? `/editpage/${item.item_name}` : `/managerindiv/${item.item_name}`} className="invitemlink">
                             <p className="invitemname">{item.item_name}</p>
                             <p className="invitemdescription">{truncateDescription(item.description)}</p>
                             <p className="invitemquantity">{item.quantity}</p>
@@ -68,9 +88,13 @@ export default function Inventory() {
             <div className="inventorynavbar">
                 <button className="invhomebutt" onClick={() => navigate('/home')}>Home</button>
                 <button className="invadditembutt" onClick={() => navigate('/createitem')}>Add Item</button>
-                <button className="invlogoutbutt" onClick={() => navigate('/')}>Log Out</button>
+                <button className="invlogoutbutt" onClick={() => navigate('/logout')}>Log Out</button>
             </div>
             <h3>{invname}'s Inventory</h3>
+            <div>
+                <input type="radio" id="editpage" className="edittoggle" value="editpage" checked={isEditPage} onChange={handleToggleChange} />
+                <label htmlFor="editpage">Toggle to edit page</label>
+            </div>
             <p>Click on an item you would like to edit</p>
             <div className="invitembar">
                 <div>

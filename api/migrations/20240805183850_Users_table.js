@@ -7,7 +7,7 @@ exports.up = function(knex) {
     table.increments();
     table.string('first_name', 250);
     table.string('last_name', 250);
-    table.string('username', 250).notNullable();
+    table.string('username', 250).notNullable().unique();
     table.string('password', 2500);
     table.string('auth_token', 500);
   })
